@@ -8,7 +8,7 @@
 
 import COpenSSL
 
-internal func encryptByMD5(src: String) throws -> Data {
+internal func encryptByMD5(_ src: String) throws -> Data {
     var results = [UInt8](repeating :0, count: Int(MD5_DIGEST_LENGTH))
     var c = MD5_CTX()
     MD5_Init(&c)
@@ -22,7 +22,7 @@ internal func encryptByMD5(src: String) throws -> Data {
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(MD5_DIGEST_LENGTH))
 }
 
-internal func encryptBySha1(src: String) throws -> Data {
+internal func encryptBySha1(_ src: String) throws -> Data {
     var results = [UInt8](repeating :0, count: Int(SHA_DIGEST_LENGTH))
     var c = SHA_CTX()
     SHA1_Init(&c)
@@ -36,7 +36,7 @@ internal func encryptBySha1(src: String) throws -> Data {
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA_DIGEST_LENGTH))
 }
 
-internal func encryptBySha256(src: String) throws -> Data {
+internal func encryptBySha256(_ src: String) throws -> Data {
     var results = [UInt8](repeating :0, count: Int(SHA256_DIGEST_LENGTH))
     var c = SHA256_CTX()
     SHA256_Init(&c)
@@ -51,7 +51,7 @@ internal func encryptBySha256(src: String) throws -> Data {
 }
 
 
-internal func encryptBySha512(src: String) throws -> Data {
+internal func encryptBySha512(_ src: String) throws -> Data {
     var results = [UInt8](repeating :0, count: Int(SHA512_DIGEST_LENGTH))
     var c = SHA512_CTX()
     SHA512_Init(&c)

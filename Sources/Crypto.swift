@@ -41,7 +41,7 @@ extension Crypto.Hasher {
      - parameter src: The Srouce string to encrypt
      - returns:  Encrypted result as Buffer
      */
-    public func hashSync(src: String) throws -> Data {
+    public func hashSync(_ src: String) throws -> Data {
         switch(self) {
         case .SHA512:
             return try encryptBySha512(src)
@@ -65,7 +65,7 @@ extension Crypto {
 
      - parameter size: A number indicating the number of bytes to generate.
      */
-    public static func randomBytesSync(size: UInt) throws -> Data {
+    public static func randomBytesSync(_ size: UInt) throws -> Data {
         return try getRandomBytes(size)
     }
 }

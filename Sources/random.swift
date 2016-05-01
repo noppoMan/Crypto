@@ -9,7 +9,7 @@
 import COpenSSL
 
 
-internal func getRandomBytes(size: UInt) throws -> Data {
+internal func getRandomBytes(_ size: UInt) throws -> Data {
     var results = [UInt8](repeating: 0, count: Int(size))
     let r = RAND_pseudo_bytes(&results, Int32(size))
     if(r != 0 && r != 1) {
