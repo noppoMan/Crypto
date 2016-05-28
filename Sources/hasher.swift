@@ -6,7 +6,7 @@
 //  Copyright © 2016 MikeTOKYO. All rights reserved.
 //
 
-import COpenSSL
+import CNPOpenSSL
 
 internal func encryptByMD5(_ src: String) throws -> Data {
     var results = [UInt8](repeating :0, count: Int(MD5_DIGEST_LENGTH))

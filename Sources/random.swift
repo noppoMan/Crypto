@@ -6,7 +6,7 @@
 //  Copyright © 2016 MikeTOKYO. All rights reserved.
 //
 
-import COpenSSL
+import CNPOpenSSL
 
 
 internal func getRandomBytes(_ size: UInt) throws -> Data {
