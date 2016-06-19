@@ -17,10 +17,10 @@
  */
 public struct Crypto {
     public enum Hasher {
-        case SHA512
-        case SHA256
-        case SHA1
-        case MD5
+        case sha512
+        case sha256
+        case sha1
+        case md5
 
         /**
          - parameter algorithm: The Algorithm that want to use
@@ -43,13 +43,13 @@ extension Crypto.Hasher {
      */
     public func hashSync(_ src: String) throws -> Data {
         switch(self) {
-        case .SHA512:
+        case .sha512:
             return try encryptBySha512(src)
-        case .SHA256:
+        case .sha256:
             return try encryptBySha256(src)
-        case .SHA1:
+        case .sha1:
             return try encryptBySha1(src)
-        case .MD5:
+        case .md5:
             return try encryptByMD5(src)
         }
     }

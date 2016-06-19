@@ -6,8 +6,6 @@
 //  Copyright © 2016 MikeTOKYO. All rights reserved.
 //
 
-import Foundation
-
 enum Error: ErrorProtocol {
-    case OpenSSLError(UInt)
+    case openSSLError(UInt)
 }
