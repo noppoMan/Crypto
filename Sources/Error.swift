@@ -6,6 +6,6 @@
 //  Copyright © 2016 MikeTOKYO. All rights reserved.
 //
 
-enum Error: ErrorProtocol {
-    case openSSLError(UInt)
+enum OpenSSLError: Error {
+    case rawError(UInt)
 }

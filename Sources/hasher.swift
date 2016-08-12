@@ -16,7 +16,7 @@ internal func encryptByMD5(_ src: String) throws -> Data {
     MD5_Update(&c, char, Int(strlen(char)))
     let r = MD5_Final(&results, &c)
     if(r != 1) {
-        throw Error.openSSLError(ERR_get_error())
+        throw OpenSSLError.rawError(ERR_get_error())
     }
     
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(MD5_DIGEST_LENGTH))
@@ -30,7 +30,7 @@ internal func encryptBySha1(_ src: String) throws -> Data {
     SHA1_Update(&c, char, Int(strlen(char)))
     let r = SHA1_Final(&results, &c)
     if(r != 1) {
-        throw Error.openSSLError(ERR_get_error())
+        throw OpenSSLError.rawError(ERR_get_error())
     }
     
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA_DIGEST_LENGTH))
@@ -44,7 +44,7 @@ internal func encryptBySha256(_ src: String) throws -> Data {
     SHA256_Update(&c, char, Int(strlen(char)))
     let r = SHA256_Final(&results, &c)
     if(r != 1) {
-        throw Error.openSSLError(ERR_get_error())
+        throw OpenSSLError.rawError(ERR_get_error())
     }
     
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA256_DIGEST_LENGTH))
@@ -59,7 +59,7 @@ internal func encryptBySha512(_ src: String) throws -> Data {
     SHA512_Update(&c, char, Int(strlen(char)))
     let r = SHA512_Final(&results, &c)
     if(r != 1) {
-        throw Error.openSSLError(ERR_get_error())
+        throw OpenSSLError.rawError(ERR_get_error())
     }
     
     return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA512_DIGEST_LENGTH))
