@@ -8,59 +8,25 @@
 
 import CNPOpenSSL
 
-internal func encryptByMD5(_ src: String) throws -> Data {
-    var results = [UInt8](repeating :0, count: Int(MD5_DIGEST_LENGTH))
-    var c = MD5_CTX()
-    MD5_Init(&c)
+func hashDigest(_ md: UnsafePointer<EVP_MD>, _ src: String) throws -> Data {
+    var buffer = [UInt8](repeating :0, count: Int(EVP_MAX_MD_SIZE))
+    var ctx = EVP_MD_CTX()
+    var olen: UInt32 = 0
     let char = src.withCString { $0 }
-    MD5_Update(&c, char, Int(strlen(char)))
-    let r = MD5_Final(&results, &c)
+    
+    EVP_MD_CTX_init(&ctx)
+    if EVP_DigestInit_ex(&ctx, md, nil) <= 0 {
+        throw OpenSSLError.rawError(ERR_get_error())
+    }
+    
+    EVP_DigestUpdate( &ctx, char, src.characters.count)
+    
+    let r = EVP_DigestFinal_ex( &ctx, &buffer,  &olen)
     if(r != 1) {
         throw OpenSSLError.rawError(ERR_get_error())
     }
     
-    return Data(pointer: UnsafePointer<UInt8>(results), length: Int(MD5_DIGEST_LENGTH))
-}
-
-internal func encryptBySha1(_ src: String) throws -> Data {
-    var results = [UInt8](repeating :0, count: Int(SHA_DIGEST_LENGTH))
-    var c = SHA_CTX()
-    SHA1_Init(&c)
-    let char = src.withCString { $0 }
-    SHA1_Update(&c, char, Int(strlen(char)))
-    let r = SHA1_Final(&results, &c)
-    if(r != 1) {
-        throw OpenSSLError.rawError(ERR_get_error())
-    }
+    EVP_MD_CTX_cleanup(&ctx)
     
-    return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA_DIGEST_LENGTH))
-}
-
-internal func encryptBySha256(_ src: String) throws -> Data {
-    var results = [UInt8](repeating :0, count: Int(SHA256_DIGEST_LENGTH))
-    var c = SHA256_CTX()
-    SHA256_Init(&c)
-    let char = src.withCString { $0 }
-    SHA256_Update(&c, char, Int(strlen(char)))
-    let r = SHA256_Final(&results, &c)
-    if(r != 1) {
-        throw OpenSSLError.rawError(ERR_get_error())
-    }
-    
-    return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA256_DIGEST_LENGTH))
-}
-
-
-internal func encryptBySha512(_ src: String) throws -> Data {
-    var results = [UInt8](repeating :0, count: Int(SHA512_DIGEST_LENGTH))
-    var c = SHA512_CTX()
-    SHA512_Init(&c)
-    let char = src.withCString { $0 }
-    SHA512_Update(&c, char, Int(strlen(char)))
-    let r = SHA512_Final(&results, &c)
-    if(r != 1) {
-        throw OpenSSLError.rawError(ERR_get_error())
-    }
-    
-    return Data(pointer: UnsafePointer<UInt8>(results), length: Int(SHA512_DIGEST_LENGTH))
+    return Data(buffer[0..<Int(olen)])
 }

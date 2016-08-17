@@ -10,7 +10,7 @@ import XCTest
 @testable import Crypto
 
 class CryptoTests: XCTestCase {
-    static var allTests: [(String, CryptoTests -> () throws -> Void)] {
+    static var allTests: [(String, (CryptoTests) -> () throws -> Void)] {
         return [
             ("testHashSync", testHashSync),
             ("testRandomBytesSync", testRandomBytesSync)
@@ -18,11 +18,11 @@ class CryptoTests: XCTestCase {
     }
 
     var context: [[Any]] {
-        let md5 = Crypto.Hasher(.MD5)
-        let sha1 = Crypto.Hasher(.SHA1)
-        let sha256 = Crypto.Hasher(.SHA256)
-        let sha512 = Crypto.Hasher(.SHA512)
-
+        let md5 = Crypto.Hasher(.md5)
+        let sha1 = Crypto.Hasher(.sha1)
+        let sha256 = Crypto.Hasher(.sha256)
+        let sha512 = Crypto.Hasher(.sha512)
+    
         return [
                    [md5, "6556fbe145a1ae3fff09d3ef697f13ea"],
                    [sha1, "d79c69966efe62977628f804bdaa8d0b823e09e7"],
